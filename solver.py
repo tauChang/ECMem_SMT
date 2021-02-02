@@ -5,7 +5,7 @@
 """
 
 import itertools
-from pysmt.shortcuts import Symbol, And, Or, GE, LT, Plus, Equals, Int, get_model, Bool, Exists, Iff, TRUE, Not
+from pysmt.shortcuts import Symbol, And, Or, GE, LT, Plus, Equals, Int, get_model, Bool, Exists, Iff, TRUE, Not, Max, is_sat
 from pysmt.typing import BV8, REAL, INT, ArrayType, BOOL
 
 def symbol_name(name, *args):
@@ -164,6 +164,7 @@ eq6 = And([R.Select(dv.i).Select(dv.d).Select(dv.t).Equals(Int(1)) for dv in DV_
 
 # Memory constraint
 eq7 = And(Bool(True))
+memory_sums = [] # for objective function
 for j in range(0, J):
     for t in range(0, T_MAX):
         memory_sum = Int(0)
@@ -175,8 +176,29 @@ for j in range(0, J):
             eq7 = eq7.And(existence_formula.Iff(indicator.Equals(1)))
             memory_sum += M[dv.k_int] * indicator
         eq7 = eq7.And(memory_sum <= M_bar[j])
-        print(memory_sum)
-print(eq7)        
+        memory_sums.append(memory_sum)
+        # print(memory_sum)
+# print(eq7)
 
-model = get_model(And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7))
-print(model)
+
+# # Decision version
+# # Objective constraint
+# obj = Max(memory_sums) <= 4
+# model = get_model(And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7, obj))
+# print(model)
+
+# Optimization version
+# Minimize the maximum memory used
+l = 0
+r = max(M_bar) + 1
+while l < r:
+    m = int((l + r) / 2)
+    if is_sat(And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7, Max(memory_sums) <= m)):
+        # print(m)
+        r = m
+    else:
+        l = m + 1
+print(f"Objective value: {l}")
+
+
+# print(is_sat(And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7, obj)))

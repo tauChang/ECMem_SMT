@@ -1,6 +1,6 @@
 # Solving Using PySMT
-## decision_solver.py
-* Usage: python3 decisions_solver.py < ${testcase}
+## solver.py
+* Usage: python3 solver.py < ${testcase}
 * Complexity of Implementation of Adding Constraint
     * In the following analysis, let $\hat{K}$ be the total number of services demanded. Note that $\hat{K} \leq I \times K$ since not all services are demanded by all vehicles.
     * Equation 1: $O(\hat{K}^2)$ 

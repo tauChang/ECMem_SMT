@@ -21,3 +21,15 @@ The next line represents $\overline{M}_{j}$. It contains $J$ non-negative intege
 
 ## Detail on Each Testcase
 ### 00.in
+Generated manually. Objective value is 0.
+### 01.in
+Generated manually. Objective value is 5.
+### 02.in
+Generated automatically. Objective value is 0.
+### 03.in 
+Generated automaticallly. Large $T_{max}$. Objective value is 0.
+### 04.in 
+Generated automaticallly. Objective value is 81.
+### 05.in
+Generated automaticallly. Objective value is 8.
+

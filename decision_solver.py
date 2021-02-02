@@ -161,7 +161,6 @@ eq5 = And([dv.t <= dv.s + F.Select(dv.i).Select(dv.k) for dv in DV_set])
 
 # Pinpoint constraint
 eq6 = And([R.Select(dv.i).Select(dv.d).Select(dv.t).Equals(Int(1)) for dv in DV_set])
-# print(eq6)
 
 # Memory constraint
 eq7 = And(Bool(True))

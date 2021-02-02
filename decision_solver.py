@@ -117,7 +117,6 @@ M = [int(x) for x in input().split()]
 # M_bar[j]
 # the memory size of server j
 M_bar = [int(x) for x in input().split()]
-print(M_bar)
 
 
 # Decision variables ================================================= 
@@ -152,7 +151,7 @@ domain = And(
 )
 
 # Execution constraint
-eq1 = And([Or(dv1.s + C.Select(dv1.e).Select(dv1.k) < dv2.s, dv1.s > dv2.s + C.Select(dv2.e).Select(dv2.k), And(dv1.k.Equals(dv2.k), dv1.s.Equals(dv2.s))) for (dv1, dv2) in itertools.combinations(DV_set, 2)])
+eq1 = And([Or(dv1.s + C.Select(dv1.e).Select(dv1.k) <= dv2.s, dv1.s >= dv2.s + C.Select(dv2.e).Select(dv2.k), And(dv1.k.Equals(dv2.k), dv1.s.Equals(dv2.s))) for (dv1, dv2) in itertools.combinations(DV_set, 2)])
 
 # Timing constraint
 eq2 = And([T.Select(dv.e).Select(dv.k) <= dv.s for dv in DV_set])
@@ -168,13 +167,16 @@ eq6 = And([R.Select(dv.i).Select(dv.d).Select(dv.t).Equals(Int(1)) for dv in DV_
 eq7 = And(Bool(True))
 for j in range(0, J):
     for t in range(0, T_MAX):
+        memory_sum = Int(0)
         for dv in DV_set:
             indicator = Symbol(symbol_name("ind", j, t, dv.i_int, dv.k_int), INT)
             existence_formula = And(dv.d.Equals(j), t >= dv.s + C.Select(dv.e).Select(dv.k) + Tv.Select(dv.e).Select(dv.d).Select(dv.k), t < dv.t)
-            print(existence_formula.Iff(indicator.Equals(1)))
+            # print(existence_formula.Iff(indicator.Equals(1)))
             eq7 = eq7.And(Not(existence_formula).Iff(indicator.Equals(0)))
             eq7 = eq7.And(existence_formula.Iff(indicator.Equals(1)))
-            eq7 = eq7.And(Plus(M[dv.k_int] * indicator) <= M_bar[j])
+            memory_sum += M[dv.k_int] * indicator
+        eq7 = eq7.And(memory_sum <= M_bar[j])
+        print(memory_sum)
 print(eq7)        
 
 model = get_model(And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7))

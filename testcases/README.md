@@ -1,6 +1,6 @@
 # Testcases
 ## Input Format
-The first four lines contain four integers $I$, $J$, $K$, and $T_{max}$, indicating the number of vehicles, the number of servers, the number of services, and the maximum time.
+The first four lines contain four integers $I$, $J$, $K$, and $T_{max}$, indicating the number of vehicles, the number of servers, the number of services, and the upper bound of time (all time $\in [0, T_{max})$).
 
 The next $J$ lines represents $T_{j, k}$. Each of these lines contains $K$ non-negative integers.
 

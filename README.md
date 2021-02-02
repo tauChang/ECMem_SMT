@@ -10,6 +10,7 @@
     * Equation 5: $O(\hat{K})$ 
     * Equation 6: $O(\hat{K})$ 
     * Equation 7: $O(J \times T \times \hat{K})$
+      * The implementation of Equation 7 involves indicator variable
 
 ## testcase_parser.py
 * Usage: python3 testcase_parser.py < ${testcase}

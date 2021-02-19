@@ -160,9 +160,10 @@ def main():
     # Memory constraint
     eq7 = And(Bool(True))
     memory_sums = [] # for objective function
-    for j in range(0, J):
-        for t in range(0, T_MAX):
-            memory_sum = Int(0)
+    for t in range(0, T_MAX):
+        memory_sums.append(Int(0))
+        for j in range(0, J):
+            memory_sum = Int(0) # for a single server at time t
             for dv in DV_set:
                 indicator = Symbol(symbol_name("ind", j, t, dv.i_int, dv.k_int), INT)
                 existence_formula = And(dv.d.Equals(j), t >= dv.s + C.Select(dv.e).Select(dv.k) + Tv.Select(dv.e).Select(dv.d).Select(dv.k), t < dv.t)
@@ -171,9 +172,14 @@ def main():
                 eq7 = eq7.And(existence_formula.Iff(indicator.Equals(1)))
                 memory_sum += M[dv.k_int] * indicator
             eq7 = eq7.And(memory_sum <= M_bar[j])
-            memory_sums.append(memory_sum)
+            memory_sums[-1] += memory_sum
             # print(memory_sum)
     # print(eq7)
+    # print(memory_sums[0])
+        
+    # memory_sums[t] == the sum of memory usage of all server at time t
+    
+
 
 
     # # Decision version
@@ -185,14 +191,14 @@ def main():
     # Optimization version
     # Minimize the maximum memory used
     constraints = And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7)
-    if(not is_sat(And(constraints, Max(memory_sums) <= max(M_bar)))):
+    if(not is_sat(And(constraints, Plus(memory_sums) <= sum(M_bar)), solver_name="z3")):
         print("Unsat")
     else:
         l = 0
-        r = max(M_bar) + 1
+        r = sum(M_bar) + 1
         while l < r:
             m = int((l + r) / 2)
-            if is_sat(And(constraints, Max(memory_sums) <= m)):
+            if is_sat(And(constraints, Plus(memory_sums) <= m), solver_name="z3"):
                 # print(m)
                 r = m
             else:

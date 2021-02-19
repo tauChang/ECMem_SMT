@@ -29,7 +29,7 @@ Generated automatically. Large $T_{max}$. Objective value is 0.
 ### 03.in 
 Generated automaticallly. Large $T_{max}$. Objective value is 0.
 ### 04.in 
-Generated automaticallly. Objective value is 81.
+Generated automaticallly. Objective value is 108.
 ### 05.in
 Generated automaticallly. Objective value is 8.
 ### 06.in

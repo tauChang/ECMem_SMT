@@ -10,11 +10,11 @@ K_range = [4, 7]
 T_range = [0, 1]
 C_range = [1, 2]
 Tv_range = [1, 2]
-D_range = [0, 10] # or -1 
+D_range = [50, 90] # or -1 
 F_range = [8, 30] # or -1
 M_range = [0, 100]
 M_bar_range = [100, 300]
-file_names = ["testcases/04"] # with suffix .in
+file_names = ["testcases/03"] # with suffix .in
 
 def generate_temp_file():
     # Generate random
@@ -89,9 +89,9 @@ def generate_temp_file():
     # R
     for i in range(0, I):
         for j in range(0, J):
-            # for k in range(0, K):
+            # for t in range(0, T_MAX):
             #     f.write(f"{randrange(0, 2)} ")
-            for k in range(0, K-2):
+            for t in range(0, T_MAX-2):
                 f.write("0 ")
             if j == 0:
                 f.write("0 0 ")
@@ -118,7 +118,7 @@ def main():
             output = f.readline()
             f.close()
             print(output)
-            if output != "Unsat\n" and output != "Objective value: 0\n":
+            if output != "Unsat\n": # and output != "Objective value: 0\n":
                 os.system(f"mv temp.in {fn}.in; rm temp.out;")
                 break
             count = count + 1

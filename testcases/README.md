@@ -29,9 +29,7 @@ Generated automatically. Large $T_{max}$. Objective value is 0.
 ### 03.in 
 Generated automaticallly. Large $T_{max}$. Objective value is 0.
 ### 04.in 
-Generated automaticallly. Objective value is 108.
+Generated automaticallly. Objective value is 18.
 ### 05.in
-Generated automaticallly. Objective value is 8.
-### 06.in
-Generated automaticallly. $I = 8, J = 8, K = 2, T_{max} = 10$. Objective value is 0.
+Generated automaticallly. Objective value is 19.
 

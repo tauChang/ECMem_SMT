@@ -2,19 +2,21 @@ from random import randrange
 from pandas import *
 import solver
 import os
+import os
+import time
 
 # Input ========================================================================
-I_range = [1, 3]
-J_range = [1, 3]
-K_range = [4, 7]
-T_range = [0, 1]
-C_range = [1, 2]
-Tv_range = [1, 2]
-D_range = [50, 90] # or -1 
+I_range = [5, 9]
+J_range = [5, 9]
+K_range = [3, 4]
+T_range = [0, 5]
+C_range = [5, 10]
+Tv_range = [1, 3]
+D_range = [50, 150] # or -1 
 F_range = [8, 30] # or -1
 M_range = [0, 100]
-M_bar_range = [100, 300]
-file_names = ["testcases/03"] # with suffix .in
+M_bar_range = [300, 500]
+file_names = ["testcases/07"] # with suffix .in
 
 def generate_temp_file():
     # Generate random
@@ -43,7 +45,7 @@ def generate_temp_file():
                     D[-1].append(randrange(D_range[0], D_range[1]))
                 T_MAX = max(T_MAX, D[-1][-1])
 
-    print(f"I:{I}, J:{J}, K:{K}, T_MAX:{T_MAX}")
+    print(f"$I = {I}$, $J = {J}$, $K = {K}$, $T_{{max}}={T_MAX}")
 
     f = open("temp.in", "w")
     # I
@@ -89,14 +91,15 @@ def generate_temp_file():
     # R
     for i in range(0, I):
         for j in range(0, J):
-            # for t in range(0, T_MAX):
-            #     f.write(f"{randrange(0, 2)} ")
-            for t in range(0, T_MAX-2):
-                f.write("0 ")
-            if j == 0:
-                f.write("0 0 ")
-            else:
-                f.write("0 1 ")
+            for t in range(0, T_MAX):
+                f.write("1 ")
+            #    f.write(f"{randrange(0, 2)} ")
+            #for t in range(0, T_MAX-2):
+            #    f.write("0 ")
+            #if j == 0:
+            #    f.write("0 0 ")
+            #else:
+            #    f.write("0 1 ")
             f.write("\n")
     # M
     for k in range(0, K):
@@ -113,8 +116,11 @@ def main():
         while True:
             print(f"Trying to generate {fn}.in for the {count}-th attempt")
             generate_temp_file()
+            start_time = time.time()
             os.system("python3 solver.py < temp.in > temp.out")
+            end_time = time.time()
             f = open("temp.out", "r")
+            print(f"time: {end_time - start_time}")
             output = f.readline()
             f.close()
             print(output)

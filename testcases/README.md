@@ -32,4 +32,6 @@ Generated automaticallly. Large $T_{max}$. Objective value is 0.
 Generated automaticallly. Objective value is 18.
 ### 05.in
 Generated automaticallly. Objective value is 19.
+### 06.in
+Generated automaticallly. $I = 7$, $J = 6$, $K = 3$, $T_{max}:135$. Objective value is 0.
 

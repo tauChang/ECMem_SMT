@@ -35,3 +35,6 @@ Generated automaticallly. Objective value is 19.
 ### 06.in
 Generated automaticallly. $I = 7$, $J = 6$, $K = 3$, $T_{max}:135$. Objective value is 0.
 
+## Attempt Notes
+* $I = 9$, $J = 11$, $K = 5$, $T_{max}=205$: killed by OS
+* $I = 8$, $J = 12$, $K = 2$, $T_{max}=224$: 45hr not solved yet

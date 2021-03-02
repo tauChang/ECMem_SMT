@@ -34,6 +34,12 @@ Generated automaticallly. Objective value is 18.
 Generated automaticallly. Objective value is 19.
 ### 06.in
 Generated automaticallly. $I = 7$, $J = 6$, $K = 3$, $T_{max}:135$. Objective value is 0.
+### 07.in
+Generated automaticallly. $I = 2$, $J = 2$, $K = 5$, $T_{max}:145$. Objective value is 20.
+Time: 1598.0864915847778
+### 08.in
+Generated automatically. $I = 4$, $J = 2$, $K = 5$, $T_{max}=149$. Objective value is 20.
+Time: 2645.628807783127
 
 ## Attempt Notes
 * $I = 9$, $J = 11$, $K = 5$, $T_{max}=205$: killed by OS

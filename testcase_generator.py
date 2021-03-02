@@ -1,4 +1,4 @@
-from random import randrange
+from random import randrange, choices
 from pandas import *
 import solver
 import os
@@ -6,17 +6,17 @@ import os
 import time
 
 # Input ========================================================================
-I_range = [5, 9]
-J_range = [5, 9]
-K_range = [3, 4]
+I_range = [4, 5]
+J_range = [4, 5]
+K_range = [5,6]
 T_range = [0, 5]
-C_range = [5, 10]
+C_range = [1, 6]
 Tv_range = [1, 3]
-D_range = [50, 150] # or -1 
+D_range = [10, 180] # or -1 
 F_range = [8, 30] # or -1
 M_range = [0, 100]
-M_bar_range = [300, 500]
-file_names = ["testcases/07"] # with suffix .in
+M_bar_range = [100, 700]
+file_names = ["testcases/09"] # with suffix .in
 
 def generate_temp_file():
     # Generate random
@@ -45,7 +45,7 @@ def generate_temp_file():
                     D[-1].append(randrange(D_range[0], D_range[1]))
                 T_MAX = max(T_MAX, D[-1][-1])
 
-    print(f"$I = {I}$, $J = {J}$, $K = {K}$, $T_{{max}}={T_MAX}")
+    print(f"$I = {I}$, $J = {J}$, $K = {K}$, $T_{{max}}={T_MAX}$")
 
     f = open("temp.in", "w")
     # I
@@ -92,8 +92,8 @@ def generate_temp_file():
     for i in range(0, I):
         for j in range(0, J):
             for t in range(0, T_MAX):
-                f.write("1 ")
-            #    f.write(f"{randrange(0, 2)} ")
+                # f.write("1 ")
+               f.write(f"{choices([0, 1], weights=(3, 7))[0]} ")
             #for t in range(0, T_MAX-2):
             #    f.write("0 ")
             #if j == 0:
@@ -117,14 +117,14 @@ def main():
             print(f"Trying to generate {fn}.in for the {count}-th attempt")
             generate_temp_file()
             start_time = time.time()
-            os.system("python3 solver.py < temp.in > temp.out")
+            os.system("timeout 7200 python3 solver.py < temp.in > temp.out")
             end_time = time.time()
             f = open("temp.out", "r")
             print(f"time: {end_time - start_time}")
             output = f.readline()
             f.close()
-            print(output)
-            if output != "Unsat\n": # and output != "Objective value: 0\n":
+            print(len(output))
+            if len(output) != 0 and output != "Unsat\n": # and output != "Objective value: 0\n":
                 os.system(f"mv temp.in {fn}.in; rm temp.out;")
                 break
             count = count + 1

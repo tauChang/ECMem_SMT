@@ -191,17 +191,18 @@ def main():
     # Optimization version
     # Minimize the maximum memory used
     constraints = And(domain, eq1, eq2, eq3, eq4, eq5, eq6, eq7)
-    if(not is_sat(And(constraints, Plus(memory_sums) <= sum(M_bar)), solver_name="z3")):
+    if(not is_sat(And(constraints, Max(memory_sums) <= sum(M_bar)), solver_name="z3")):
         print("Unsat")
     else:
-        if(is_sat(And(constraints, Plus(memory_sums) <= 0), solver_name="z3")):
+        if(is_sat(And(constraints, Max(memory_sums) <= 0), solver_name="z3")):
             print(f"Objective value = 0")
         else:
             l = 1
             r = sum(M_bar) + 1
             while l < r:
+                # print(f"{l}, {r}")
                 m = int((l + r) / 2)
-                if is_sat(And(constraints, Plus(memory_sums) <= m), solver_name="z3"):
+                if is_sat(And(constraints, Max(memory_sums) <= m), solver_name="z3"):
                     # print(m)
                     r = m
                 else:

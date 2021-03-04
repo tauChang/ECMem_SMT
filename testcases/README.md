@@ -40,7 +40,7 @@ Time: 1598.0864915847778
 ### 08.in
 Generated automatically. $I = 4$, $J = 2$, $K = 5$, $T_{max}=149$. Objective value is 0.
 Time: 2645.628807783127
-
+ 
 ## Attempt Notes
 * $I = 9$, $J = 11$, $K = 5$, $T_{max}=205$: killed by OS
 * $I = 8$, $J = 12$, $K = 2$, $T_{max}=224$: 45hr not solved yet
